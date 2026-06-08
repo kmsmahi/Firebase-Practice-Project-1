@@ -1,6 +1,28 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { app } from '../Firebase/Firebase.config';
+import { toast } from 'react-toastify';
+const auth = getAuth(app);
 const SignIn = () => {
+    const [show,setShow]=useState(false);
+    const signinBtnHandler=(e)=>{
+        e.preventDefault();
+        const Email=e.target.email.value;
+        const Password=e.target.password.value;
+          console.log('after sign in : ',{Email,Password});    
+        signInWithEmailAndPassword(auth, Email, Password)
+        .then((res)=>{
+                    console.log(res);
+                    toast.success(' Sign in successfull');
+                  })
+                  
+                  .catch((err)=>{
+                    console.log(err);
+                    toast.error(err.message);
+                  })
+    }
     return (
         // Both sections now share a clean, professional light background (bg-slate-50)
         <div className='min-h-screen grid grid-cols-12 bg-slate-50'>
@@ -17,7 +39,7 @@ const SignIn = () => {
             
             {/* Right Form Section */}
             <section className='right col-span-12 md:col-span-6 flex items-center justify-center p-8 md:p-16'>
-                <form className='w-full max-w-md flex flex-col gap-4' action="" onSubmit={(e) => e.preventDefault()}>
+                <form className='w-full max-w-md flex flex-col gap-4' action="" onSubmit={signinBtnHandler}>
                     
                     <div className='text-center mb-4'>
                         <h2 className='text-slate-900 font-bold text-3xl'>Sign In</h2>
@@ -28,16 +50,17 @@ const SignIn = () => {
                     <div className="form-control w-full">
                         <label className='label text-sm font-medium text-slate-700 mb-1'>Email Address</label>
                         {/* White background inputs with subtle gray borders for a clean light UI */}
-                        <input type="email" placeholder="name@example.com" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
+                        <input name='email' type="email" placeholder="name@example.com" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
                     </div>
 
                     {/* Password Input group */}
-                    <div className="form-control w-full">
+                    <div className="form-control w-full relative">
                         <div className="flex justify-between items-center mb-1">
                             <label className='label text-sm font-medium text-slate-700'>Password</label>
                             <a className='text-sm font-medium text-primary hover:underline' href="#forgot">Forgot Password?</a>
                         </div>
-                        <input type="password" placeholder="••••••••" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
+                        <input name='password' type={show? "text" : "password"} placeholder="••••••••" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
+                        <span onClick={()=>setShow(!show)} className='absolute right-6 top-9 cursor-pointer z-2'>{show?<FaEye />:<FaEyeSlash />}</span>
                     </div>
 
                     {/* Login Button */}
