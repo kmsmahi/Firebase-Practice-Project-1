@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { toast } from 'react-toastify';
 import { app } from '../Firebase/Firebase.config';
 const auth = getAuth(app);
@@ -11,7 +11,10 @@ const SignUp = () => {
           e.preventDefault(); 
           const Email=e.target.email.value;
           const Password=e.target.password.value;
-          console.log('after sign up : ',{Email,Password});    
+          const displayName=e.target.name.value;
+          const photoURL=e.target.photo.value;
+          console.log('after sign up : ',{Email,displayName,photoURL,Password}); 
+             
           const validPass=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
           console.log(validPass.test(Password));
           if(!validPass.test(Password)){
@@ -29,17 +32,31 @@ const SignUp = () => {
             return;
           }
           createUserWithEmailAndPassword(auth, Email, Password)
-          .then((res)=>{
-            console.log(res);
-            toast.success(' Sign up successfull');
-          })
+          .then(async (res) => {
+          try {
+            await updateProfile(res.user, {
+                displayName: displayName,
+                photoURL: photoURL
+            });
+            
+            console.log("Profile updated & user created:", res.user);
+            toast.success('Sign up successful!');
+            e.target.reset(); // Optional: clears the form
+            
+        } catch (profileError) {
+            console.log("Failed to update profile details:", profileError);
+            toast.error("Account created, but failed to save profile details.");
+        }
+    })
+    .catch((err) => {
+        console.log("Authentication error:", err);
+        toast.error(err.message);
+    });
           
-          .catch((err)=>{
-            console.log(err);
-            toast.error(err.message);
-          })
+        }
+            
           
-    }
+    
     return (
         // The whole grid now shares the exact same clean, light background (bg-slate-50)
         <div className='min-h-screen grid grid-cols-12 bg-slate-50'>
@@ -63,17 +80,19 @@ const SignUp = () => {
                         <p className='text-sm text-slate-500 mt-1'>Please enter your details</p>
                     </div>
 
-                    {/* Name Input group */}
-                    {/* <div className="form-control w-full">
+                   
+                     <div className="form-control w-full">
                         <label className='label text-sm font-medium text-slate-700 mb-1'>Name</label>
-                        <input type="text" placeholder="Enter your name" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
-                    </div> */}
+                        <input type="text"
+                        name='name' placeholder="Enter your name" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
+                    </div>
 
-                    {/* Photo URL Input group */}
-                    {/* <div className="form-control w-full">
+                    
+                    <div className="form-control w-full">
                         <label className='label text-sm font-medium text-slate-700 mb-1'>Photo URL</label>
-                        <input type="url" placeholder="Provide your photo url" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
-                    </div> */}
+                        <input type="url"
+                        name='photo' placeholder="Provide your photo url" className="input input-bordered input-md w-full bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-primary" />
+                    </div>
 
                     {/* Email Input group */}
                     <div className="form-control w-full">
