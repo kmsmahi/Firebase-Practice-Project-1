@@ -3,6 +3,7 @@ import HomeLayOuts from "../LayOuts/HomeLayOuts";
 import Home from "../Pages/Home";
 import About from "../Pages/About";
 import Career from "../Pages/Career";
+import CategoryNews from "../Componenets/CategoryNews";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
         {
             path:'/career',
             element:<Career></Career>
-        }
+        },
+        {
+            path:'/category/:id',
+            element:<CategoryNews></CategoryNews>
+        },
 
     ]
   },
