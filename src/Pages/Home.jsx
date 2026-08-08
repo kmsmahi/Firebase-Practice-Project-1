@@ -3,7 +3,7 @@ import CategoryNews from "../Componenets/CategoryNews";
 const Home = () => {
     return (
         <div>
-           <CategoryNews></CategoryNews>
+           {/* <CategoryNews></CategoryNews> */}
         </div>
     );
 };
