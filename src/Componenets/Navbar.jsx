@@ -1,9 +1,10 @@
 import React from 'react';
 import { FaRegCircleUser } from "react-icons/fa6";
+import { Link } from 'react-router';
 import { NavLink } from 'react-router';
 const Navbar = () => {
     return (
-        <div className="navbar bg-base-100 mt-6">
+        <div className="navbar  mt-6">
   <div className="navbar-start">
     {/* <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -33,7 +34,7 @@ const Navbar = () => {
   </div>
   <div className="navbar-end gap-3">
     <FaRegCircleUser className='w-12 h-8'/>
-    <a className="btn text-white bg-[#403F3F]"><span className='px-3 py-2'>Login</span></a>
+    <Link to='/auth/login' className="btn text-white bg-[#403F3F]"><span className='px-3 py-2'>Login</span></Link>
   </div>
 </div>
     );
