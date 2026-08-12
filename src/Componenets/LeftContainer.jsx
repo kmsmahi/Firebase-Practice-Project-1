@@ -4,7 +4,7 @@ const categoryFetchData=fetch('/categories.json').then(res=>res.json());
 
 const LeftContainer = () => {
     const CategoryNewsData=use(categoryFetchData);
-    console.log(CategoryNewsData);
+    // console.log(CategoryNewsData);
     const[active,setActive]=useState(1);
     return (
         <div>

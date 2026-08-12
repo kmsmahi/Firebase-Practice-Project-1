@@ -9,11 +9,11 @@ const LoginPage = () => {
     const form=e.target;
     const email=form.email.value;
     const password=form.password.value;
-    console.log({email,password});
+    // console.log({email,password});
     Login(email,password)
     .then(res=>{
       const user=res.user;
-      console.log(user);
+      // console.log(user);
     })
      .catch((error) => {
     const errorCode = error.code;

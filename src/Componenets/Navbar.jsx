@@ -1,54 +1,65 @@
-import React from 'react';
-import { use } from 'react';
+import React, { use, useState } from 'react';
 import { FaRegCircleUser } from "react-icons/fa6";
-import { Link } from 'react-router';
-import { NavLink } from 'react-router';
+import { HiMenu, HiX } from "react-icons/hi"; // Added for mobile menu
+import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
+
 const Navbar = () => {
-  const {user,Logout}=use(AuthContext);
-  const logoutBtnHandler=()=>{
-    console.log('user trying to logout');
+  const { user, Logout } = use(AuthContext);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const logoutBtnHandler = () => {
     Logout();
-  }
-    return (
-        <div className="navbar  mt-6">
-  <div className="navbar-start">
-    {/* <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
-      </div>
-      <ul
-        tabIndex="-1"
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Home</a></li>
-        <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
+  };
+
+  return (
+    <div className="relative mt-4 mb-6">
+      <div className="navbar bg-base-100 px-0 sm:px-4">
+        <div className="navbar-start">
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="btn btn-ghost lg:hidden mr-2"
+          >
+            {isMobileMenuOpen ? <HiX className="w-6 h-6" /> : <HiMenu className="w-6 h-6" />}
+          </button>
+          <h1 className="font-bold text-lg hidden sm:block">{user && user.email}</h1>
+        </div>
+
+        {/* Desktop Menu */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="flex gap-6 font-semibold text-[#706F6F]">
+            <NavLink to='/home' className={({isActive}) => isActive ? "text-black" : "hover:text-black transition-colors"}>Home</NavLink>
+            <NavLink to='/about' className={({isActive}) => isActive ? "text-black" : "hover:text-black transition-colors"}>About</NavLink>
+            <NavLink to='/career' className={({isActive}) => isActive ? "text-black" : "hover:text-black transition-colors"}>Career</NavLink>
           </ul>
-        </li>
-        <li><a>Item 3</a></li>
-      </ul>
-    </div> */}
-    <h1>{user && user.email}</h1>
-  </div>
-  <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1 gap-4 font-semibolod text-[#706F6F]">
-      <NavLink to='/home'><a>Home</a></NavLink>
-      <NavLink to='/about'><a>About</a></NavLink>
-      <NavLink to='/career'><a>Career</a></NavLink>
-    </ul>
-  </div>
-  <div className="navbar-end gap-3">
-    <FaRegCircleUser className='w-12 h-8'/>
-    {
-      user? (<button onClick={logoutBtnHandler} className="btn text-white bg-[#403F3F]"><span className='px-3 py-2'>Logout</span></button> ) : (<Link to='/auth/login' className="btn text-white bg-[#403F3F]"><span className='px-3 py-2'>Login</span></Link> )
-    }
-    
-  </div>
-</div>
-    );
+        </div>
+
+        <div className="navbar-end gap-3 flex items-center">
+          <FaRegCircleUser className='w-8 h-8 sm:w-10 sm:h-10 text-gray-600'/>
+          {user ? (
+            <button onClick={logoutBtnHandler} className="btn border-none text-white bg-[#403F3F] hover:bg-black rounded-none px-6">
+              Logout
+            </button> 
+          ) : (
+            <Link to='/auth/login' className="btn border-none text-white bg-[#403F3F] hover:bg-black rounded-none px-6">
+              Login
+            </Link> 
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-full left-0 w-full bg-white shadow-lg rounded-b-lg z-50 p-4 flex flex-col gap-4 lg:hidden border-t">
+          <h1 className="font-bold text-sm text-gray-500 mb-2 truncate">{user && user.email}</h1>
+          <NavLink to='/home' onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-gray-700">Home</NavLink>
+          <NavLink to='/about' onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-gray-700">About</NavLink>
+          <NavLink to='/career' onClick={() => setIsMobileMenuOpen(false)} className="font-semibold text-gray-700">Career</NavLink>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Navbar;
