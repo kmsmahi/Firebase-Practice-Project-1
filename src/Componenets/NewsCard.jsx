@@ -2,6 +2,7 @@ import React from 'react';
 import { FaCopy } from "react-icons/fa";
 import { FaShareAlt } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
+import { Link } from 'react-router';
 const NewsCard = ({news}) => {
     const formatedDate=new Date(news.author.published_date).toLocaleDateString();
     const words=news.details.split(' ');
@@ -34,6 +35,7 @@ const NewsCard = ({news}) => {
             <div className='flex flex-col gap-3'>
                 <img src={news.image_url} alt="" />
                 <p className='text-gray-400 font-semibold'>{trancatedWords}</p>
+                <Link to={`/newsDetails/${news.id}`}className='font-semibold cursor-pointer text-xl text-red-600'>Read More</Link>
             </div>
             <hr className='text-gray-300' />
 

@@ -8,6 +8,7 @@ import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import AuthLayout from "../Componenets/AuthLayout";
 import Logout from "../Pages/Logout";
+import NewsDetails from "../Componenets/NewsDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,14 +47,15 @@ const router = createBrowserRouter([
         element:<RegisterPage></RegisterPage>
       },
       // {
-      //   path:'/auth/logout',
-      //   element:<Logout></Logout>
+      //   path:'/newsDetails/:id',
+      //   element:<NewsDetails></NewsDetails>
       // }
     ]
   },
   {
-    path: "/News",
-    element: <h1>News</h1>,
+        path:'/newsDetails/:id',
+        element:<NewsDetails></NewsDetails>,
+        loader:()=>fetch('/news.json'),
   },
   {
     path: "/*",
