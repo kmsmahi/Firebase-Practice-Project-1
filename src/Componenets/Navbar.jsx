@@ -1,8 +1,15 @@
 import React from 'react';
+import { use } from 'react';
 import { FaRegCircleUser } from "react-icons/fa6";
 import { Link } from 'react-router';
 import { NavLink } from 'react-router';
+import { AuthContext } from '../Provider/AuthProvider';
 const Navbar = () => {
+  const {user,Logout}=use(AuthContext);
+  const logoutBtnHandler=()=>{
+    console.log('user trying to logout');
+    Logout();
+  }
     return (
         <div className="navbar  mt-6">
   <div className="navbar-start">
@@ -24,6 +31,7 @@ const Navbar = () => {
         <li><a>Item 3</a></li>
       </ul>
     </div> */}
+    <h1>{user && user.email}</h1>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1 gap-4 font-semibolod text-[#706F6F]">
@@ -34,7 +42,10 @@ const Navbar = () => {
   </div>
   <div className="navbar-end gap-3">
     <FaRegCircleUser className='w-12 h-8'/>
-    <Link to='/auth/login' className="btn text-white bg-[#403F3F]"><span className='px-3 py-2'>Login</span></Link>
+    {
+      user? (<button onClick={logoutBtnHandler} className="btn text-white bg-[#403F3F]"><span className='px-3 py-2'>Logout</span></button> ) : (<Link to='/auth/login' className="btn text-white bg-[#403F3F]"><span className='px-3 py-2'>Login</span></Link> )
+    }
+    
   </div>
 </div>
     );

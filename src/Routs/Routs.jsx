@@ -7,6 +7,7 @@ import CategoryNews from "../Componenets/CategoryNews";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import AuthLayout from "../Componenets/AuthLayout";
+import Logout from "../Pages/Logout";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path:'/auth/register',
         element:<RegisterPage></RegisterPage>
       },
+      // {
+      //   path:'/auth/logout',
+      //   element:<Logout></Logout>
+      // }
     ]
   },
   {
