@@ -22,13 +22,13 @@ const RightContainer = () => {
       <div>
         <h1 className='font-bold text-xl mb-4'>Find Us On</h1>
         <div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden cursor-pointer'>
-          <div className='flex gap-4 items-center border-b border-gray-200 px-4 py-4 hover:bg-gray-50 transition-colors'>
-            <div className="bg-blue-100 p-2 rounded-full"><FaFacebook className='w-5 h-5 text-blue-600'/></div>
-            <h1 className='font-medium text-gray-700'>Facebook</h1>
+          <div className='flex gap-4 items-center border-b border-gray-200 px-4 py-3.5 hover:bg-gray-50 transition-colors'>
+            <div className="bg-blue-100 p-2 rounded-full"><FaFacebook className='w-4 h-4 text-blue-600'/></div>
+            <h1 className='font-medium text-gray-700 text-sm sm:text-base'>Facebook</h1>
           </div>
-          <div className='flex gap-4 items-center px-4 py-4 hover:bg-gray-50 transition-colors'>
-            <div className="bg-blue-50 p-2 rounded-full"><FaTwitter className='w-5 h-5 text-blue-400'/></div>
-            <h1 className='font-medium text-gray-700'>Twitter</h1>
+          <div className='flex gap-4 items-center px-4 py-3.5 hover:bg-gray-50 transition-colors'>
+            <div className="bg-blue-50 p-2 rounded-full"><FaTwitter className='w-4 h-4 text-blue-400'/></div>
+            <h1 className='font-medium text-gray-700 text-sm sm:text-base'>Twitter</h1>
           </div>
         </div>
       </div>

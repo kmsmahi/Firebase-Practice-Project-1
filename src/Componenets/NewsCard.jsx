@@ -11,14 +11,14 @@ const NewsCard = ({ news }) => {
     : news.details;
 
   return (
-    <div className='flex flex-col gap-4 border border-gray-100 rounded-xl mb-8 shadow-sm overflow-hidden bg-white'>
+    <div className='flex flex-col gap-4 border border-gray-200 rounded-xl mb-6 shadow-sm overflow-hidden bg-white'>
       {/* Header Info */}
       <div className='flex justify-between items-center bg-gray-50 px-4 sm:px-6 py-3 sm:py-4'>
         <div className='flex gap-3 sm:gap-4 items-center'>
           <img className='w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover' src={news.author.img} alt={news.author.name} />
           <div className='flex flex-col'>
             <h1 className='font-bold text-sm sm:text-base text-gray-800'>{news.author.name}</h1>
-            <h1 className='font-medium text-xs sm:text-sm text-gray-500'>{formatedDate}</h1>
+            <h1 className='font-medium text-xs sm:text-sm text-gray-400'>{formatedDate}</h1>
           </div>
         </div>
 
@@ -32,7 +32,7 @@ const NewsCard = ({ news }) => {
         <h1 className='font-bold text-lg sm:text-xl text-gray-900 leading-snug'>{news.title}</h1>
 
         {/* Thumbnail Image */}
-        <div className="w-full h-48 sm:h-64 rounded-lg overflow-hidden">
+        <div className="w-full h-48 sm:h-64 rounded-lg overflow-hidden bg-gray-100">
           <img src={news.image_url} alt="Thumbnail" className="w-full h-full object-cover" />
         </div>
 
@@ -50,7 +50,7 @@ const NewsCard = ({ news }) => {
       <div className='flex justify-between items-center px-4 sm:px-6 py-3 pb-5'>
         <div className='flex gap-2 sm:gap-3 items-center'>
           <div className="rating rating-sm">
-            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked readOnly />
+            <input type="radio" name={`rating-${news._id || news.id}`} className="mask mask-star-2 bg-orange-400" checked readOnly />
           </div>
           <h1 className='text-sm sm:text-base font-semibold text-gray-600'>{news.rating.number}</h1>
         </div>
